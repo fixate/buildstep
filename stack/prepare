@@ -15,7 +15,7 @@ apt-get clean
 TMP=$(mktemp -d)
 while read line; do
   file=${line##*/}
-  curl -o $TMP/$file $line
+  curl -L -o $TMP/$file $line
   dpkg -i $TMP/$file
 done < /build/debs.txt
 rm -rf $TMP
