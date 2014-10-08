@@ -10,6 +10,15 @@ apt-get update
 xargs apt-get install -y --force-yes < /build/packages.txt
 apt-get clean
 
+# Extra deb packages
+TMP=$(mktemp -d)
+while read $deb; do
+  file=${line##*/}
+  curl -o $TMP/$file $deb
+  dpkg -i $TMP/$file
+done < /build/debs.txt
+rm -rf $TMP
+
 #
 # SUPPORTED BUILDPACKS
 #
