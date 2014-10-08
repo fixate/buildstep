@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eo pipefail
 #
 # Prepares the "stack" to run apps and the environment to run buildpacks
 #
@@ -12,7 +13,7 @@ apt-get clean
 
 # Extra deb packages
 TMP=$(mktemp -d)
-while read $deb; do
+while read deb; do
   file=${line##*/}
   curl -o $TMP/$file $deb
   dpkg -i $TMP/$file
